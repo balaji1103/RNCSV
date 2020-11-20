@@ -1,0 +1,132 @@
+Summary,Issue key,Issue id,Issue Type,Status,Project key,Project name,Project type,Project lead,Project description,Project url,Priority,Resolution,Assignee,Reporter,Creator,Created,Updated,Last Viewed,Resolved,Fix Version/s,Component/s,Component/s,Due Date,Votes,Labels,Description,Environment,Watchers,Watchers,Watchers,Original Estimate,Remaining Estimate,Time Spent,Work Ratio,Σ Original Estimate,Σ Remaining Estimate,Σ Time Spent,Attachment,Attachment,Awaiting Manager Approval,Awaiting Manager Approval simplified,Awaiting Ready for Duo Implementation,Awaiting Ready for Duo Implementation simplified,Awaiting Ready for Implementation,Awaiting Ready for Implementation simplified,Awaiting Security Approval,Awaiting Security Approval simplified,Awaiting System Owner Approval,Awaiting System Owner Approval simplified,Custom field (Baseline End),Custom field (Baseline Start),Custom field (CCATS ID),Custom field (Change in 2-digit release version number?),Custom field (Changed materials?),Custom field (Committed Date),Custom field (Customer Name),Custom field (Customer Related?),Custom field (Customer Request Type),Custom field (Date of First Response),Custom field (Documentation Needed),Custom field (Encryption Change?),Custom field (Epic Link),Custom field (External Reference),Custom field (First Closed Date),Custom field (First Closed User),Custom field (First Code Done User),Custom field (First In Progress Date),Custom field (First In Progress User),Custom field (First Reopened Date),Custom field (First Reopened User),Custom field (First Resolution Date),Custom field (First Resolution User),Custom field (Fixed after Build),Custom field (Found In Version),Custom field (Global Rank),Custom field (Impact Status),Custom field (Incident Type),Custom field (Item Number),Custom field (Iteration),Custom field (Last Closed Date),Custom field (Last Closed User),Custom field (Last Code Done User),Custom field (Last Resolution User),Custom field (License Exception),Custom field (NL ECCN),Custom field (NL HTS),Custom field (New Features Baselined at Commitment),Custom field (New Features Delivered at Closure),Custom field (No Response Time),Custom field (On Hold Reason),Custom field (Operational categorization),Custom field (PCT Remarks),Custom field (Planned End),Custom field (Planned Start),Custom field (Previous ECCN),Custom field (Project Replan Reason),Custom field (RCA Details),Custom field (RCA Dev),Custom field (RCA QA),Custom field (Rank),Custom field (Rank (Obsolete)),Custom field (Release Note),Custom field (Remaining Baselined New Features),Custom field (Reopening Counter),Custom field (Request participants),Custom field (Root cause),Custom field (Salesforce Case Reference),Custom field (Salesforce Jira Issue Link Reference),Satisfaction score (out of 5),Custom field (Shippable Item Name),Custom field (Steps to restore service),Custom field (Story Points),Custom field (Suite Release),Custom field (Team),Custom field (Team Role),Custom field (Technical Readiness Planned),Custom field (Technical Writer),Custom field (Tempo Account),Custom field (Test Category),Custom field (Test Start Planned),Time - Waiting for Customer,Time - Waiting for Customer simplified,Time to Duo Implementation,Time to Duo Implementation simplified,Time to Implementation,Time to Implementation simplified,Time to Manager Approval,Time to Manager Approval simplified,Time to Ready for Duo Implementation,Time to Ready for Duo Implementation simplified,Time to Security Approval,Time to Security Approval simplified,Time to System Owner Approval,Time to System Owner Approval simplified,Time to System Owner response,Time to System Owner response simplified,Time to approve normal change,Time to approve normal change simplified,Time to close after resolution,Time to close after resolution simplified,Time to first response,Time to first response simplified,Time to resolution,Time to resolution simplified,Time to respond,Time to respond simplified,Custom field (US ECCN),Custom field (US HTS),Custom field (Urgent?),Custom field (Workaround),Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment
+B2B: CPN not displayed in call to RG with unmonitored member,LYNC-3484,955344,Defect,Open,LYNC,Microsoft Skype for Business,software,jakobe,"<h3><a name=""Welcometoyourproject""></a>Welcome to MS Lync project</h3>
+<p>Everything you need to know about how the project is running is tracked on this page. As your project evolves, the information will be updated. Use the tabs on the left to navigate within your project.</p>
+<h4><a name=""Describeyourprojecthere""></a>Genesys integration with MS Lync</h4>
+<p>Genesys Lync integration for contact center and back office</p>",https://intranet.genesys.com/display/RP/Multimedia+Connector+for+Skype+for+Business+Continuous+Deliveryhttps://intranet.genesys.com/display/RP/Multimedia+Connector+for+Skype+for+Business,Minor,,roustamm,pdodds,pdodds,"February 20, 2018 9:55 PM","June 26, 2018 3:32 PM","November 20, 2020 10:56 AM",,,MS Lync Connector,,,0,LIMITATION,"If I make a b2b call to a Response Group with unmonitored members then the CPN is not displayed once a member has answered the call.
+
+In the attached logs Response Group r_group01@uksfb.lab has two members, u99 and u100, and neither u99 u100 are monitored devices.
+
+In the attached logs monitored device u15 makes a call to the RG. In the request CPN ""sip:102_01_u20@uksfb.lab"" is passed. This device is configured in CME.
+
+The call is delivered to u99. If you look at the attached *alerting* screenshot you will see the u20 is correctly displayed as the other participant.
+
+u99 accepts the call via the SfB. If you look at the attached *established* screenshot will see that u20 is no longer reported as a participant and has been replaced by the conferencing portal.
+
+In all the other CPN tests that I have conducted so far, the CPN is displayed in the alerting toast +and+ as a participant once the call is established.",,jakobe,pdodds,roustamm,,,,,,,,"February 20, 2018 9:54 PM;pdodds;CPN_call_to_RG_with_unmonitored_members_logs.zip;https://jira.genesys.com/secure/attachment/488303/CPN_call_to_RG_with_unmonitored_members_logs.zip",,,,,,,,,,,,,,,,,,,No,,2018-02-21 03:17:28.022,,,,,,,,,,,,,,,8.5.001.60,9223372036854775807,,,,,,,,,,,,,,,,,,,,,,,,,"0|i3w0cf:",9223372036854775807,"Currently, if CPN Digits are used for a B2B call to a Response Group that conatins Skype for Business users not handled by Genesys, the CPN Digits are displayed in the ringing toast, but the CPN Digits are replaced in the Skype for Business conversation window with the conference service portal name after the call is answered.",0,0.0,,,,,,,,,,,,,,,Facility - function testing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,No,,"February 21, 2018 4:47 PM;lgorbach;Problem scenario is:
+ - Response Group contains unmonitored DN3
+
+ - CPN is unknown SIP URI
+
+ - B2B call to Response Group
+
+Problem is: incoming call on DN3 from Response Group with impersonated CPN. DN3 receives a call from CPN delegated by Response Group and answers the call. After call is established, in Skype for Business roaster DN3 see Conference Service Portal instead of CPN.
+
+ 
+
+Problem cannot be fixed because Response Group is Skype for Business B2B application and after answer on Response Group member, answered Response Group member calls back by itself to call originator - in our case the call originator is Conference Service Portal. Call is established by Skype for Business Client itself - there is no possibility to make Skype for Business Client to impersonate its call destination as CPN.
+
+This scenario must be described as LIMITATION with workaround.
+
+ ","June 25, 2018 4:00 PM;jakobe;Lowering priority
+
+[~roustamm] for future consideration",,,,,,
+B2B: Response Group members unable to answer call when using CPN digits,LYNC-3483,955235,Defect,Open,LYNC,Microsoft Skype for Business,software,jakobe,"<h3><a name=""Welcometoyourproject""></a>Welcome to MS Lync project</h3>
+<p>Everything you need to know about how the project is running is tracked on this page. As your project evolves, the information will be updated. Use the tabs on the left to navigate within your project.</p>
+<h4><a name=""Describeyourprojecthere""></a>Genesys integration with MS Lync</h4>
+<p>Genesys Lync integration for contact center and back office</p>",https://intranet.genesys.com/display/RP/Multimedia+Connector+for+Skype+for+Business+Continuous+Deliveryhttps://intranet.genesys.com/display/RP/Multimedia+Connector+for+Skype+for+Business,Minor,,roustamm,pdodds,pdodds,"February 20, 2018 7:53 PM","July 09, 2018 1:50 PM","November 20, 2020 10:56 AM",,,MS Lync Connector,,,0,LIMITATION,"If I try to make a call to a Response Group using the CPN feature then the call appears on the RG members' SfB clients before being immediately dropped and it cannot be answered.
+
+In the attached logs u1 and u2 are members of RG sip:r_group01@uksfb.lab.
+
+The first call shows a call to the RG without CPN. It is delivered to u2 who answers. So everything is fine without CPN.
+
+I then repeat the test, this time providing CPN digits. The call momentarily appears on the SfB client of both u1 and u2 but the toast immediately disappears.",,jakobe,pdodds,roustamm,,,,,,,,"February 20, 2018 8:47 PM;pdodds;LYNC-3483_additional_logs.zip;https://jira.genesys.com/secure/attachment/488263/LYNC-3483_additional_logs.zip","February 20, 2018 7:52 PM;pdodds;cpn_call_to_RG_logs.zip;https://jira.genesys.com/secure/attachment/488244/cpn_call_to_RG_logs.zip",,,,,,,,,,,,,,,,,,No,,2018-02-20 07:09:29.514,,,,,,,,,,,,,,,8.5.001.60,9223372036854775807,,,,,,,,,,,,,,,,,,,,,,,,,"0|i3vzpz:",9223372036854775807,"Currently, if CPN Digits is used for a B2B call to a Response Group that conatins DNs handled by Genesys, such a call cannot be answered by a Response Group member agent.",0,0.0,,,,,,,,,,,,,,,Facility - function testing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,No,,"February 20, 2018 8:39 PM;lgorbach;[~pauld], i've tested this scenario - and it works for me well
+
+the possible reason for such behaviour on your side is: no access rights for sip:MakeCall@*genesys.com* to call RG endpoints - maybe @genesys.com is the reason. At first step, you could try to sip:MakeCall@*uksfb.lab*
+
+But actually i mentioned in FDS that {color:#000000}Сaller ID must be SIP URI of existing in Skype for Business environment Endpoint{color}
+
+i do not believe that you have sip:MakeCall@*genesys.com*  as SfB user
+
+Could you please try again with provided info?","February 20, 2018 8:46 PM;pdodds;All the other CPN tests I've run work fine provided the value is a valid SIP URI - it doesn't matter whether it exists in CME or not.
+
+Anyway, I reran the test using sip:102_01_u20@uksfb.lab as my CPN and the problem still occurs. I've attached these additional logs.","February 20, 2018 8:53 PM;lgorbach;[~pauld], this point from FDS is not about CME - SIP URI that used for CPN should be created in SfB
+
+Yes, in fact you're right and i've tested and in most cases simple fake SIP URI like sip:[blablabla@fakedomain.net|mailto:blablabla@fakedomain.net] is works fine, but(!) actually SfB makes the call with using pointed SIP URI - and it's possible situation that by some reasons call will be failed (as in your case)
+
+So to prevent the situation that our customers are playing into game with attempts to make it works - i provided the way how it must be configured and used","February 20, 2018 9:00 PM;lgorbach;[~pauld], could you please describe your scene
+
+sip:[102_01_u15@uksfb.lab|mailto:102_01_u15@uksfb.lab] - is agent
+
+sip:[r_group01@uksfb.lab|mailto:r_group01@uksfb.lab] - is RG
+
+ 
+
+sip:[102_01_u20@uksfb.lab|mailto:102_01_u20@uksfb.lab] - is it configured in CME or unmonitored?
+
+Who answers the RG Call?  sip:[102_01_u2@uksfb.lab|mailto:102_01_u2@uksfb.lab]?
+
+Is sip:[102_01_u2@uksfb.lab|mailto:102_01_u2@uksfb.lab] configured in CME, right?
+
+ 
+
+Could you please make the logs for case without CPN with same actors?","February 20, 2018 9:10 PM;pdodds;Hi Leon,
+
+I've already provided logs without CPN in the first attachment.
+
+Ignoring the genesys.com scenario, this is what you'll find in the logs.
+
+As mentioned in the description, u1 and u2 are members of RG r_group01. As you can see in the logs, all these devices are configured in CME.
+
+From cpn_call_to_RG_logs.zip:
+* ConnID 01b402b85cca3001
+* Monitored device u15 makes call to RG r_group01 without using CPN
+* Call is delivered to RG member u2
+* u2 is able to answer the call
+
+From LYNC-3483_additional_logs.zip
+* ConnID 01b402b85da46001
+* Monitored device u15 makes call to RG  r_group01 - CPN ""sip:102_01_20@uksfb.lab"" is passed as u20 is configured in CME as requested
+* Call is delivered to RG member u1 and is immediately released
+* Call is delivered to RG member u2 and is immediately released
+","February 20, 2018 9:34 PM;lgorbach;It looks like the problem is that:
+
+Calling by B2B with CPN to Response Group with Monitored members causes unexpected behaviour
+
+Will investigate.
+
+At least - we definitely can live with that limitation because using of CPN for monitored RG makes not so much sense","February 21, 2018 2:50 PM;lgorbach;Problem scenario is:
+
+- Response Group contains monitored DN3
+
+- CPN is unknown SIP URI
+
+- B2B call to Response Group
+
+Problem is: incoming call on DN3 from Response Group with impersonated CPN is interpreted as incoming direct call - and handled by Connector.
+
+Problem cannot be fixed because Response Group is Skype for Business B2B application and it's impossible to pass custom headers in call from Response Group to Response Group Member.
+
+This scenario must be described as LIMITATION with workaround.
+
+Workaround: CPN should point to Application Endpoint configured in CME as Routing Point","June 25, 2018 3:58 PM;jakobe;Changed priority to low
+
+[~roustamm] for future consideration"
+"TS might not come in service, if rq-expire-tout=0 and treatment or recording is configured",LYNC-3387,897567,Defect,Closed,LYNC,Microsoft Skype for Business,software,jakobe,"<h3><a name=""Welcometoyourproject""></a>Welcome to MS Lync project</h3>
+<p>Everything you need to know about how the project is running is tracked on this page. As your project evolves, the information will be updated. Use the tabs on the left to navigate within your project.</p>
+<h4><a name=""Describeyourprojecthere""></a>Genesys integration with MS Lync</h4>
+<p>Genesys Lync integration for contact center and back office</p>",https://intranet.genesys.com/display/RP/Multimedia+Connector+for+Skype+for+Business+Continuous+Deliveryhttps://intranet.genesys.com/display/RP/Multimedia+Connector+for+Skype+for+Business,Major,Fixed,hbhaskar,hbhaskar,hbhaskar,"November 14, 2017 5:07 PM","November 23, 2017 3:57 AM","November 20, 2020 11:03 AM","November 17, 2017 9:16 PM",8.5.001.55,Merged,MS Lync TServer DDP,,0,,,,gbabe,hbhaskar,lubens,,,,,,,,,,,,,,,,,,,,,,,,,,,No,,2017-11-15 04:40:41.8,No,,,,2017-11-22 14:27:51.808,,roustamm(roustamm),2017-11-14 03:41:28.192,,,,2017-11-17 07:46:10.254,roustamm(roustamm),,8.5.001.54,9223372036854775807,,,,,2017-11-22 14:27:51.808,gbabe(gbabe),roustamm(roustamm),roustamm(roustamm),,,,,,,,,,,,,,missed tests with option rq-expire-tout set to 0 and recording or treatment configured.,Limited Unit Testing,,"0|i3mgdr:",9223372036854775807,"T-Server can now start when value of option 'rq-expire-tout' is set to 0 and treatment or recording is configured.
+Previously, such settings might have put T-Server into endless loop.",0,0.0,,,,,,,,,,,,,,,Facility - function testing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,No,,"November 15, 2017 6:10 PM;roustamm;Issue is found and TServer is modified.
+
+Due to option 'rq-expire-tout' being set to 0 and particularities of timer implementation in common lib the use of timeout with value 0 leads to immediate execution of the timer - without giving control to the T-Server.
+
+In order to prevent unresponsiveness of T-Server the TS will check if option value provided is 0 and will use 1 msec - this would allow T-Server to use small timeout in registration to remote services but without being looped.
+
+CRV #64289 (http://rd-w2k8:9090/ui#review:id=64289) submitted.","November 17, 2017 9:16 PM;roustamm;No new tests.
+Behaviour is easily reproducible:
+
+- the option 'rq-expire-tout' is set to 0 before TS start
+- treatments or recording is configured
+
+Starting TS leads to freezes in previous TS versions - TS  cannot be connected to, only killed; newer version allows to connect and control","November 18, 2017 2:13 AM;lubens;Greg, please try manually and write a quick test to check this option setting.
+
+","November 23, 2017 3:57 AM;gbabe;Added test lync_3387_2 to regression.",,,,
